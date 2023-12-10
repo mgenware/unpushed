@@ -1,0 +1,50 @@
+{
+  "name": "unpushed",
+  "version": "0.0.0",
+  "description": "Scan your home directory and find unpushed git repos",
+  "type": "module",
+  "exports": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "author": "Mgenware (https://github.com/mgenware)",
+  "homepage": "https://github.com/mgenware/unpushed",
+  "bugs": "https://github.com/mgenware/unpushed/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mgenware/unpushed"
+  },
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "test": "daizong build"
+  },
+  "bin": {
+    "unpushed": "./dist/main.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.ts",
+    "dist/**/*.html",
+    "dist/**/*.css",
+    "dist/**/*.map"
+  ],
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.10.4",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "daizong": "^0.27.0",
+    "eslint": "^8.55.0",
+    "eslint-config-mgenware": "^0.10.0",
+    "eslint-plugin-import": "^2.29.0",
+    "mgenware-tsconfig-node": "^14.2.0",
+    "mocha": "^10.0.0",
+    "source-map-support": "^0.5.21",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "execa": "^8.0.1"
+  }
+}
