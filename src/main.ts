@@ -71,6 +71,7 @@ async function scanDir(dir: string) {
 (async () => {
   try {
     const cwd = process.cwd();
+    log(`>> Scanning ${cwd}`);
     const dirNames = await getDirNames(cwd);
     await Promise.all(dirNames.map((dir) => scanDir(dir)));
   } catch (err) {
