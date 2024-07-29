@@ -13,13 +13,12 @@ function logError(s: unknown) {
   return log(chalk.red(s));
 }
 
-function processError(err: unknown) {
+function printError(err: unknown) {
   if (err instanceof Error) {
     logError(err.message);
   } else {
     logError(`${err}`);
   }
-  process.exit(1);
 }
 
 async function getDirNames(source: string) {
@@ -52,18 +51,22 @@ async function hasUnpushedChanges(dir: string) {
 }
 
 async function scanDir(dir: string) {
-  const isGit = await isGitRepo(dir);
-  if (!isGit) {
-    return;
-  }
-  const uncommittedChanges = await hasUncommittedChanges(dir);
-  if (uncommittedChanges) {
-    log(` 🔴 ${dir} has uncommitted changes`);
-    return;
-  }
-  const unpushedChanges = await hasUnpushedChanges(dir);
-  if (unpushedChanges) {
-    log(` 🟠 ${dir} has unpushed changes`);
+  try {
+    const isGit = await isGitRepo(dir);
+    if (!isGit) {
+      return;
+    }
+    const uncommittedChanges = await hasUncommittedChanges(dir);
+    if (uncommittedChanges) {
+      log(` 🔴 ${dir} has uncommitted changes`);
+      return;
+    }
+    const unpushedChanges = await hasUnpushedChanges(dir);
+    if (unpushedChanges) {
+      log(` 🟠 ${dir} has unpushed changes`);
+    }
+  } catch (err) {
+    logError(`Error scanning ${dir}: ${err}`);
   }
 }
 
@@ -75,6 +78,6 @@ async function scanDir(dir: string) {
     const dirNames = await getDirNames(cwd);
     await Promise.all(dirNames.map((dir) => scanDir(dir)));
   } catch (err) {
-    processError(err);
+    printError(err);
   }
 })();
